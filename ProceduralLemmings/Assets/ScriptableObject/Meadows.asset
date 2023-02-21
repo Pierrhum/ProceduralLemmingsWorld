@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0539893312ae5549a7dc9d938cae02d, type: 3}
   m_Name: Meadows
   m_EditorClassIdentifier: 
-  MapSize: 200
-  Seed: 5
-  Scale: 1
-  Octave: 10
-  Persistence: 1.5
-  Lacunarity: 0.5
-  Offset: {x: 5, y: 0}
+  Noise: {fileID: 11400000, guid: d7466da17e4774f4982d6b8f592bbe02, type: 2}
   HeightMultiplier: 10
   heightCurve:
     serializedVersion: 2
@@ -26,18 +20,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0

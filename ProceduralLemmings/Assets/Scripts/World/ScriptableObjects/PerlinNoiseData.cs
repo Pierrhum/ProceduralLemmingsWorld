@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Biome/Data")]
-public class BiomeData : ScriptableObject
+[CreateAssetMenu(menuName = "Data/Noise")]
+public class PerlinNoiseData : NoiseData
 {
-    [Header("Noise")] 
+    [Header("Noise")]
     public int MapSize = 200;
     public int Seed = 0;
     public int Scale = 1;
@@ -13,9 +13,9 @@ public class BiomeData : ScriptableObject
     public float Persistence = 0.5f;
     public float Lacunarity = 1.5f;
     public Vector2 Offset = Vector2.zero;
-
-    [Header("Mesh")] 
-    public int HeightMultiplier;
-    public AnimationCurve heightCurve;
-    public int LOD;
+    
+    public override float[,] GenerateMap()
+    {
+        return Noise.GenerateNoiseMap(MapSize, MapSize, Seed, Scale, Octave, Persistence, Lacunarity, Offset);
+    }
 }

@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 
 public class Terrain : MonoBehaviour
 {
-    [SerializeField] private BiomeData biome;
+    [SerializeField, DisplayInspector] private BiomeData biome;
     [SerializeField] private bool GenerateTerrain;
     
     [SerializeField] private AnimationCurve heightCurve;
@@ -19,7 +20,8 @@ public class Terrain : MonoBehaviour
 
     private void Generate()
     {
-        float[,] heightMap = Noise.GenerateNoiseMap(biome.MapSize, biome.MapSize, biome.Seed, biome.Scale, biome.Octave, biome.Persistence, biome.Lacunarity, biome.Offset);
+
+        float[,] heightMap = biome.Noise.GenerateMap();
         Mesh mesh = MeshGenerator.GenerateTerrainMesh(heightMap, biome.HeightMultiplier, heightCurve, biome.LOD).CreateMesh();
 
         meshFilter.mesh = mesh;
