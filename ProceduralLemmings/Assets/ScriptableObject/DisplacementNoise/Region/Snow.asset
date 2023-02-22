@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3945d81488013a74c89a733123a612dc, type: 3}
-  m_Name: MoistureNoise
+  m_Script: {fileID: 11500000, guid: e1bf84ea12a338f4f8e8fabe524623bd, type: 3}
+  m_Name: Snow
   m_EditorClassIdentifier: 
-  MapSize: 1000
-  Seed: 999
-  Scale: 59
-  Octave: 7
-  Persistence: 0.86
-  Lacunarity: 1.5
-  Offset: {x: 0, y: 0}
+  color: {r: 1, g: 1, b: 1, a: 0}
+  zones:
+  - minTemperature: 0.705
+    minMoisture: 0

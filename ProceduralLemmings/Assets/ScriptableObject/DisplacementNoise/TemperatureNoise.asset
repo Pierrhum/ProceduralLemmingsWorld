@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3945d81488013a74c89a733123a612dc, type: 3}
   m_Name: TemperatureNoise
   m_EditorClassIdentifier: 
-  MapSize: 100
+  MapSize: 1000
   Seed: 999
   Scale: 50
   Octave: 7

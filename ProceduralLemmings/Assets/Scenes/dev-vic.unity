@@ -498,8 +498,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1314021763}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3684241, y: -2.9236069, z: 0.48735046}
-  m_LocalScale: {x: 100, y: 1, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1000, y: 1, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -517,8 +517,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9840d88e8152cb34b89e543797150d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawMode: 3
   moistureNoise: {fileID: 11400000, guid: 2524fe417f0ba2b458d8f79d3065942b, type: 2}
   temperatureNoise: {fileID: 11400000, guid: b48d6af54564f6c41a58e2358005c09c, type: 2}
+  regionList:
+  - {fileID: 11400000, guid: 1bf1add929b96d14b9fdc595ac5265ca, type: 2}
+  - {fileID: 11400000, guid: afbb9bbbfc4fb254582452a926c7d40b, type: 2}
+  - {fileID: 11400000, guid: 8f1a54c996a57014a806fcba174783e2, type: 2}
   autoUpdate: 1
 --- !u!114 &1314021769
 MonoBehaviour:

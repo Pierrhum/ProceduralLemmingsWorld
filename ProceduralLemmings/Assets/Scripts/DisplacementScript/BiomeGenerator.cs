@@ -3,29 +3,35 @@ using UnityEngine;
 
 public class BiomeGenerator : MonoBehaviour
 {
+    [SerializeField] DrawMode drawMode;
+    private enum DrawMode { None, temperatureMap, MoistureMap, LevelingColorMap, BiomeColorMap};
+    
     [Header("Noise")] 
     [SerializeField, DisplayInspector] private NoiseData moistureNoise;
     [SerializeField, DisplayInspector] private NoiseData temperatureNoise;
     
-    public TerrainType[] colorRegionList;
+    [SerializeField, DisplayInspector] private RegionData[] regionList;
 
     public bool autoUpdate;
     
     public void GenerateMap() {
         
         DisplayMapTexture display = FindObjectOfType<DisplayMapTexture>();
-        display.DrawNoiseMap (moistureNoise.GenerateMap());
-        
+        if (drawMode == DrawMode.None) {
+            display.ResetDisplay();
+        }
+        else if (drawMode == DrawMode.temperatureMap) {
+            display.DrawNoiseMap(moistureNoise.GenerateMap());
+        }
+        else if (drawMode == DrawMode.MoistureMap) {
+            display.DrawNoiseMap(temperatureNoise.GenerateMap());
+        }
+        else if (drawMode == DrawMode.LevelingColorMap) {
+            display.DrawLevelingColorMap(regionList, 100);
+        }
+        else if (drawMode == DrawMode.BiomeColorMap) {
+            display.DrawColorBiomeZone(temperatureNoise.GenerateMap(), moistureNoise.GenerateMap(), regionList, 100);
+        }
     }
 
-}
-    
-[System.Serializable]
-public struct TerrainType {
-    public string name;
-    public float height;
-    public float moisture;
-    public float minDistance;
-    public Color color;
-    public GameObject vegetationPrefab;
 }
