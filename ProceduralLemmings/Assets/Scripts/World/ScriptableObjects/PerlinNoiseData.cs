@@ -16,6 +16,6 @@ public class PerlinNoiseData : NoiseData
     
     public override float[,] GenerateMap()
     {
-        return Noise.GenerateNoiseMap(MapSize, MapSize, Seed, Scale, Octave, Persistence, Lacunarity, Offset);
+        return PerlinNoise.GenerateNoiseMap(MapSize, MapSize, Seed, Scale, Octave, Persistence, Lacunarity, Offset);
     }
 }
