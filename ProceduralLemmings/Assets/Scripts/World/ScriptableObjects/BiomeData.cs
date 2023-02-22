@@ -10,9 +10,10 @@ public class BiomeData : ScriptableObject
     [Header("Noise")] public NoiseData Noise;
 
     [Header("Mesh")] 
+    public int MapSize = 200;
     public int HeightMultiplier;
     public AnimationCurve heightCurve;
-    public int LOD;
+    public int LOD = 1;
 
     [Header("Materials")] 
     public List<BiomeMaterials> Materials;

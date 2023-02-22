@@ -25,7 +25,7 @@ public class Terrain : MonoBehaviour
         meshCollider = GetComponent<MeshCollider>();
         meshRenderer = GetComponent<MeshRenderer>();
         float[,] heightMap = biome.Noise.GenerateMap();
-        Mesh mesh = MeshGenerator.GenerateTerrainMesh(heightMap, biome.HeightMultiplier, biome.heightCurve, biome.LOD).CreateMesh();
+        Mesh mesh = MeshGenerator.GenerateTerrainMesh(heightMap, biome.MapSize, biome.HeightMultiplier, biome.heightCurve, biome.LOD).CreateMesh();
 
         Texture2D tileTexture = null;
         if (ApplyNoiseTexture)
