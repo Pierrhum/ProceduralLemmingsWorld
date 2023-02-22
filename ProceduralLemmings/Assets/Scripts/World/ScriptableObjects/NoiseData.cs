@@ -9,7 +9,7 @@ public abstract class NoiseData : ScriptableObject
     public float Scale = 1f;
 
     // 256 * 256
-    protected int NoiseSize = 256;
+    public static int NoiseSize = 256;
     // Type
     public abstract float[,] GenerateMap();
 }
