@@ -4,6 +4,10 @@ public class DisplayMapTexture : MonoBehaviour
 {
     public Renderer textureRender;
 
+    public void DrawColorBiomeZone(float[,] moistureNoiseMap, float[,] temperatureNoiseMap, TerrainType[] colorRegionList) {
+        
+    }
+    
     public void DrawNoiseMap(float[,] noiseMap) {
         int width = noiseMap.GetLength (0);
         int height = noiseMap.GetLength (1);
