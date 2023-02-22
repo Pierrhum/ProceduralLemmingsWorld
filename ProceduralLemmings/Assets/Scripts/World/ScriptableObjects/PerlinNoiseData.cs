@@ -18,4 +18,13 @@ public class PerlinNoiseData : NoiseData
     {
         return PerlinNoise.GenerateNoiseMap(MapSize, MapSize, Seed, Scale, Octave, Persistence, Lacunarity, Offset);
     }
+    
+    void OnValidate() {
+        if (MapSize < 1) {
+            MapSize = 1;
+        }
+        if (Octave < 0) {
+            Octave = 0;
+        }
+    }
 }
