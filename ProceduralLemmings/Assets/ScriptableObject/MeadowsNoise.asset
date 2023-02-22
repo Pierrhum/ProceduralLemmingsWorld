@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3945d81488013a74c89a733123a612dc, type: 3}
   m_Name: MeadowsNoise
   m_EditorClassIdentifier: 
-  MapSize: 200
-  Seed: 11
-  Scale: 1
-  Octave: 15
+  MapSize: 100
+  Seed: 10
+  Scale: 5
+  Octave: 10
   Persistence: 1.5
-  Lacunarity: 0.4
+  Lacunarity: 0.8
   Offset: {x: 0, y: 0}
