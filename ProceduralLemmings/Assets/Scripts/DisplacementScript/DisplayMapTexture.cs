@@ -23,6 +23,7 @@ public class DisplayMapTexture : MonoBehaviour
     }
 
     public void DrawLevelingColorMap(BiomeData[] regionsData, int size) {
+        MeshData meshData = MeshGenerator.InitPlane(size);
         textureRender.enabled = true;
         int width = size, height = size;
         
@@ -51,6 +52,11 @@ public class DisplayMapTexture : MonoBehaviour
         }
         texture.Apply();
         
+        Mesh mesh = meshData.CreateMesh();
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        MeshCollider meshCollider = GetComponent<MeshCollider>();
+        meshFilter.sharedMesh = mesh;
+        meshCollider.sharedMesh = mesh;
         textureRender.sharedMaterial.mainTexture = texture;
         textureRender.transform.localScale = new Vector3 (width, 1, height);
     }
@@ -84,6 +90,8 @@ public class DisplayMapTexture : MonoBehaviour
     }
 
     public void DrawBiomeHeightMap(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size) {
+        
+        MeshData meshData = MeshGenerator.InitPlane(size);
         textureRender.enabled = true;
         int width = size, height = size;
         Color[] biomeMap = new Color[width * height];
@@ -105,12 +113,19 @@ public class DisplayMapTexture : MonoBehaviour
                             currentTemperature <= regionDataZone.maxTemperature && 
                             currentMoisture <= regionDataZone.maxMoisture) {
                             biomeMap[y * size + x] = Color.Lerp(Color.black, Color.white, heightMap[nX, nY]) ;
-                            
+                            meshData.ApplyHeightMap(x,y,heightMap[nX, nY],  biomeData.HeightMultiplier, biomeData.heightCurve);
                         }
                     }
                 }
             }
         }
+
+        Mesh mesh = meshData.CreateMesh();
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        MeshCollider meshCollider = GetComponent<MeshCollider>();
+        meshFilter.sharedMesh = mesh;
+        meshCollider.sharedMesh = mesh;
+        
         DrawTexture(TextureFromColorMap(biomeMap, size, size));
         
     }

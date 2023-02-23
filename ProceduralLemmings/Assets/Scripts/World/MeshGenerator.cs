@@ -4,6 +4,35 @@ using System.Collections.Generic;
 
 public static class MeshGenerator {
 
+	public static MeshData InitPlane(int mapSize)
+	{
+		int width = mapSize + 1;
+		int height = mapSize + 1;
+		
+		// Offset to center the plane
+		Vector3 offset = new Vector3(-(width-1), 0, -(height-1)) / 2f;
+
+		MeshData meshData = new MeshData (width, height);
+		int vertexIndex = 0;
+
+		for (int y = 0; y < height; y ++) {
+			for (int x = 0; x < width; x ++)
+			{
+				meshData.vertices [vertexIndex] = offset + new Vector3 (x, 0,y);
+				meshData.uvs [vertexIndex] = new Vector2 (x / (float)width, y / (float)height);
+
+				if (x < width - 1 && y < height - 1) {
+					meshData.AddTriangle (vertexIndex + height, vertexIndex + 1, vertexIndex);
+					meshData.AddTriangle (vertexIndex + height, vertexIndex + height + 1, vertexIndex + 1);
+				}
+				vertexIndex++;
+			}
+		}
+		return meshData;
+	}
+	
+	
+
 	public static MeshData GenerateTerrainMesh(float[,] heightMap, int mapSize, float heightMultiplier, AnimationCurve heightCurve, int LOD) {
 		int width = mapSize + 1;
 		int height = mapSize + 1;
@@ -40,7 +69,15 @@ public class MeshData {
 
 	int triangleIndex;
 
-	public MeshData(int meshWidth, int meshHeight) {
+	private int _meshWidth;
+	private int _meshHeight;
+	
+
+	public MeshData(int meshWidth, int meshHeight)
+	{
+		_meshWidth = meshWidth;
+		_meshHeight = meshHeight;
+		
 		vertices = new Vector3[meshWidth * meshHeight];
 		uvs = new Vector2[meshWidth * meshHeight];
 		triangles = new int[(meshWidth-1)*(meshHeight-1)*6];
@@ -51,6 +88,13 @@ public class MeshData {
 		triangles [triangleIndex + 1] = b;
 		triangles [triangleIndex + 2] = c;
 		triangleIndex += 3;
+	}
+
+	public void ApplyHeightMap(int x, int y, float heightValue, float heightMultiplier, AnimationCurve heightCurve)
+	{
+		Vector3 pos = vertices[y * _meshWidth + x];
+		pos = new Vector3(pos.x, heightCurve.Evaluate(heightValue) * heightMultiplier, pos.z);
+		vertices[y * _meshWidth + x] = pos;
 	}
 
 	public Mesh CreateMesh() {
