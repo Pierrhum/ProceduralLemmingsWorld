@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3945d81488013a74c89a733123a612dc, type: 3}
   m_Name: MoistureNoise
   m_EditorClassIdentifier: 
-  MapSize: 1000
   Seed: 999
-  Scale: 59
+  Scale: 50
   Octave: 7
-  Persistence: 0.86
-  Lacunarity: 1.5
+  Persistence: 0.66
+  Lacunarity: 1.47
   Offset: {x: 0, y: 0}

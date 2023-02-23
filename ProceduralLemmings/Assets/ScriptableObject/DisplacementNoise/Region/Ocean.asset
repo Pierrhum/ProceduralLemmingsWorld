@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1bf84ea12a338f4f8e8fabe524623bd, type: 3}
-  m_Name: Forest
+  m_Name: Ocean
   m_EditorClassIdentifier: 
-  color: {r: 0.061238017, g: 0.3490566, b: 0, a: 0}
+  color: {r: 0, g: 0.076042175, b: 1, a: 0}
   zones:
-  - minTemperature: 0.475
-    maxTemperature: 0.864
-    minMoisture: 0.515
+  - minTemperature: 0.207
+    maxTemperature: 0.414
+    minMoisture: 0
+    maxMoisture: 0.529
+  - minTemperature: 0
+    maxTemperature: 0.227
+    minMoisture: 0
     maxMoisture: 1

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3945d81488013a74c89a733123a612dc, type: 3}
-  m_Name: TemperatureNoise
+  m_Script: {fileID: 11500000, guid: e1bf84ea12a338f4f8e8fabe524623bd, type: 3}
+  m_Name: Desert
   m_EditorClassIdentifier: 
-  Seed: 666
-  Scale: 600
-  Octave: 5
-  Persistence: 0.27
-  Lacunarity: 5.5
-  Offset: {x: 0, y: 0}
+  color: {r: 0.8773585, g: 0.69423676, b: 0.27038085, a: 0}
+  zones:
+  - minTemperature: 0.475
+    maxTemperature: 0.859
+    minMoisture: 0
+    maxMoisture: 0.515
