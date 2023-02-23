@@ -17,8 +17,8 @@ public static class MeshGenerator {
 		for (int y = 0; y < height; y ++) {
 			for (int x = 0; x < width; x ++)
 			{
-				int hX = (int)(Mathf.InverseLerp(0, width, x) * heightMap.GetLength(0));
-				int hY = (int)(Mathf.InverseLerp(0, height, y) * heightMap.GetLength(1));
+				int hX = (int)(Mathf.InverseLerp(0, width, x) * NoiseData.NoiseSize);
+				int hY = (int)(Mathf.InverseLerp(0, height, y) * NoiseData.NoiseSize);
 				meshData.vertices [vertexIndex] = offset + new Vector3 (x, heightCurve.Evaluate(heightMap [hX, hY]) * heightMultiplier,y);
 				meshData.uvs [vertexIndex] = new Vector2 (x / (float)width, y / (float)height);
 

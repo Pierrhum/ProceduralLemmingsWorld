@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4a987b10109fc4ebbdc9f49436c861, type: 3}
   m_Name: MountainNoise
   m_EditorClassIdentifier: 
-  Seed: 7
+  Seed: 0
   Scale: 50
-  Octave: 5
-  Persistence: 0.8
-  Lacunarity: 1.2
+  Octave: 4
+  Persistence: 0.7
+  Lacunarity: 1.1
   Offset: {x: 0, y: 0}
