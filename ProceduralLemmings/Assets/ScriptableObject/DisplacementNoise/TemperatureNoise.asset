@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TemperatureNoise
   m_EditorClassIdentifier: 
   Seed: 666
-  Scale: 256
-  Octave: 5
-  Persistence: 0.5
-  Lacunarity: 3
+  Scale: 2000
+  Offset: {x: 100, y: 0}
+  Octave: 2
+  Persistence: 3
+  Lacunarity: 5
   Offset: {x: 0, y: 0}

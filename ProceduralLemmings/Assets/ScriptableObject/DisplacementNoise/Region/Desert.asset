@@ -19,23 +19,23 @@ MonoBehaviour:
     minMoisture: 0
     maxMoisture: 0.515
   Noise: {fileID: 11400000, guid: d4eb2c7d7a536a14f9c4b54f3804b6ad, type: 2}
-  MapSize: 200
-  HeightMultiplier: 20
+  MapSize: 256
+  HeightMultiplier: 2000
   heightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1.1764705
-      outSlope: 1.1764705
+      inSlope: 0.40111256
+      outSlope: 0.40111256
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.85
-      value: 1
+      time: 0.65090334
+      value: 0.2610855
       inSlope: 0.043203127
       outSlope: 0.043203127
       tangentMode: 0
@@ -45,8 +45,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2.1166472
+      outSlope: 2.1166472
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
