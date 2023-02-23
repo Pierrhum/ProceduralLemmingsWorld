@@ -19,7 +19,7 @@ public class BiomeGenerator : MonoBehaviour
     
     public void GenerateMap() {
 
-        DisplayMapTexture display = FindObjectOfType<DisplayMapTexture>();
+        DisplayMapTexture display = GetComponent<DisplayMapTexture>();
         if (drawMode == DrawMode.None) {
             display.ResetDisplay(size);
         }
@@ -28,7 +28,7 @@ public class BiomeGenerator : MonoBehaviour
             display.DrawNoiseMap(temperatureNoise.GenerateMap(), size);
         }
         else if (drawMode == DrawMode.MoistureMap) {
-            temperatureNoise.Offset = Offset;
+            moistureNoise.Offset = Offset;
             display.DrawNoiseMap(moistureNoise.GenerateMap(), size);
         }
         else if (drawMode == DrawMode.LevelingColorMap) {

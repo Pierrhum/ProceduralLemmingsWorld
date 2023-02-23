@@ -63,7 +63,6 @@ public class DisplayMapTexture : MonoBehaviour
         meshFilter.sharedMesh = mesh;
         meshCollider.sharedMesh = mesh;
         textureRender.sharedMaterial.mainTexture = texture;
-        textureRender.transform.localScale = new Vector3 (width, 1, height);
     }
 
     public void DrawColorBiomeZone(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size) {
@@ -160,7 +159,6 @@ public class DisplayMapTexture : MonoBehaviour
         // Material mat = textureRender.sharedMaterial;
         // textureRender.sharedMaterial = new Material(mat);
         textureRender.sharedMaterial.mainTexture = texture;
-        textureRender.transform.localScale = new Vector3(texture.width, 1, texture.height);
     }
 
 }
