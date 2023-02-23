@@ -22,7 +22,7 @@ public class DisplayMapTexture : MonoBehaviour
         DrawTexture(TextureFromColorMap(colourMap, width, height));
     }
 
-    public void DrawLevelingColorMap(RegionData[] regionsData, int size) {
+    public void DrawLevelingColorMap(BiomeData[] regionsData, int size) {
         textureRender.enabled = true;
         int width = size, height = size;
         
@@ -30,7 +30,7 @@ public class DisplayMapTexture : MonoBehaviour
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
 
-        foreach (RegionData regionData in regionsData) {
+        foreach (BiomeData regionData in regionsData) {
             foreach (Zone regionDataZone in regionData.zones) {
                 int minX = (int)(width*regionDataZone.minMoisture);
                 int maxX = (int)(width*regionDataZone.maxMoisture);
@@ -55,29 +55,25 @@ public class DisplayMapTexture : MonoBehaviour
         textureRender.transform.localScale = new Vector3 (width, 1, height);
     }
 
-    public void DrawColorBiomeZone(float[,] temperatureMap, float[,] moistureMap, RegionData[] regionsData, int size) {
+    public void DrawColorBiomeZone(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size) {
         textureRender.enabled = true;
         int width = size, height = size;
         Color[] biomeMap = new Color[width * height];
         
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                
-                int tX = (int)(Mathf.InverseLerp(0, width, x) * temperatureMap.GetLength(0));
-                int tY = (int)(Mathf.InverseLerp(0, height, y) * temperatureMap.GetLength(1));
-                float currentTemperature = temperatureMap[tX, tY];
-                
-                int mX = (int)(Mathf.InverseLerp(0, width, x) * temperatureMap.GetLength(0));
-                int mY = (int)(Mathf.InverseLerp(0, height, y) * temperatureMap.GetLength(1));
-                float currentMoisture = moistureMap[mX, mY];
+                int nX = (int)(Mathf.InverseLerp(0, width, x) * NoiseData.NoiseSize);
+                int nY = (int)(Mathf.InverseLerp(0, height, y) * NoiseData.NoiseSize);
+                float currentTemperature = temperatureMap[nX, nY];
+                float currentMoisture = moistureMap[nX, nY];
 
-                foreach (RegionData regionData in regionsData) {
-                    foreach (Zone regionDataZone in regionData.zones) {
+                foreach (BiomeData biomeData in regionsData) {
+                    foreach (Zone regionDataZone in biomeData.zones) {
                         if (currentTemperature >= regionDataZone.minTemperature && 
                             currentMoisture >= regionDataZone.minMoisture && 
                             currentTemperature <= regionDataZone.maxTemperature && 
                             currentMoisture <= regionDataZone.maxMoisture) {
-                            biomeMap[y * size + x] = regionData.color;
+                            biomeMap[y * size + x] = biomeData.color;
                         }
                     }
                 }
@@ -85,6 +81,38 @@ public class DisplayMapTexture : MonoBehaviour
         }
 
         DrawTexture(TextureFromColorMap(biomeMap, size, size));
+    }
+
+    public void DrawBiomeHeightMap(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size) {
+        textureRender.enabled = true;
+        int width = size, height = size;
+        Color[] biomeMap = new Color[width * height];
+
+        
+        foreach (BiomeData biomeData in regionsData) {
+            if (biomeData.Noise == null) continue;
+            float[,] heightMap = biomeData.Noise.GenerateMap();
+            foreach (Zone regionDataZone in biomeData.zones) {
+                for (int x = 0; x < size; x++) {
+                    for (int y = 0; y < size; y++) {
+                        //temperature value
+                        int nX = (int)(Mathf.InverseLerp(0, width, x) * NoiseData.NoiseSize);
+                        int nY = (int)(Mathf.InverseLerp(0, height, y) * NoiseData.NoiseSize);
+                        float currentTemperature = temperatureMap[nX, nY];
+                        float currentMoisture = moistureMap[nX, nY];
+                        if (currentTemperature >= regionDataZone.minTemperature && 
+                            currentMoisture >= regionDataZone.minMoisture && 
+                            currentTemperature <= regionDataZone.maxTemperature && 
+                            currentMoisture <= regionDataZone.maxMoisture) {
+                            biomeMap[y * size + x] = Color.Lerp(Color.black, Color.white, heightMap[nX, nY]) ;
+                            
+                        }
+                    }
+                }
+            }
+        }
+        DrawTexture(TextureFromColorMap(biomeMap, size, size));
+        
     }
 
     

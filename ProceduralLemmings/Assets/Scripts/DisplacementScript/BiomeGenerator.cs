@@ -4,7 +4,7 @@ using UnityEngine;
 public class BiomeGenerator : MonoBehaviour
 {
     [SerializeField] DrawMode drawMode;
-    private enum DrawMode { None, temperatureMap, MoistureMap, LevelingColorMap, BiomeColorMap};
+    private enum DrawMode { None, temperatureMap, MoistureMap, LevelingColorMap, BiomeColorMap, BiomeHeightMap};
     
     [SerializeField] private int size = 100;
     
@@ -12,7 +12,7 @@ public class BiomeGenerator : MonoBehaviour
     [SerializeField, DisplayInspector] private NoiseData temperatureNoise;
     [SerializeField, DisplayInspector] private NoiseData moistureNoise;
     
-    [SerializeField, DisplayInspector] private RegionData[] regionList;
+    [SerializeField, DisplayInspector] private BiomeData[] regionList;
 
     public bool autoUpdate;
     
@@ -33,6 +33,9 @@ public class BiomeGenerator : MonoBehaviour
         }
         else if (drawMode == DrawMode.BiomeColorMap) {
             display.DrawColorBiomeZone(temperatureNoise.GenerateMap(), moistureNoise.GenerateMap(), regionList, size);
+        }
+        else if (drawMode == DrawMode.BiomeHeightMap) {
+            display.DrawBiomeHeightMap(temperatureNoise.GenerateMap(), moistureNoise.GenerateMap(), regionList, size);
         }
     }
 

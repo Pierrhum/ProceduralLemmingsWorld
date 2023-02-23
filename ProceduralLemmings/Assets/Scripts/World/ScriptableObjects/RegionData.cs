@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Biome")]
-public class BiomeData : ScriptableObject
+[CreateAssetMenu(menuName = "Data/Region")]
+public class RegionData : ScriptableObject
 {
     [Header("Noise")] public NoiseData Noise;
 
@@ -19,9 +19,3 @@ public class BiomeData : ScriptableObject
     public List<BiomeMaterials> Materials;
 }
 
-[Serializable]
-public struct BiomeMaterials
-{
-    public float zMax;
-    public Material material;
-}

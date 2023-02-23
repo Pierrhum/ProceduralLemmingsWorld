@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Terrain : MonoBehaviour
 {
-    [SerializeField, DisplayInspector] private BiomeData biome;
+    [SerializeField, DisplayInspector] private RegionData region;
     [SerializeField] private bool ApplyNoiseTexture;
     [SerializeField] private bool GenerateTerrain;
     
@@ -24,15 +24,15 @@ public class Terrain : MonoBehaviour
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
         meshRenderer = GetComponent<MeshRenderer>();
-        float[,] heightMap = biome.Noise.GenerateMap();
-        Mesh mesh = MeshGenerator.GenerateTerrainMesh(heightMap, biome.MapSize, biome.HeightMultiplier, biome.heightCurve, biome.LOD).CreateMesh();
+        float[,] heightMap = region.Noise.GenerateMap();
+        Mesh mesh = MeshGenerator.GenerateTerrainMesh(heightMap, region.MapSize, region.HeightMultiplier, region.heightCurve, region.LOD).CreateMesh();
 
         Texture2D tileTexture = null;
         if (ApplyNoiseTexture)
         {
             tileTexture = BuildTexture(heightMap);
             meshRenderer.sharedMaterial.mainTexture = tileTexture;
-        } else if (biome.Materials.Count > 0)
+        } else if (region.Materials.Count > 0)
         {
             
         }
@@ -56,7 +56,7 @@ public class Terrain : MonoBehaviour
                 else
                 {
                     // Color map according to texture
-                    if (heightValue / 255.0f > biome.Materials[matIndex].zMax) matIndex++;
+                    if (heightValue / 255.0f > region.Materials[matIndex].zMax) matIndex++;
                     
                 } 
                     

@@ -18,3 +18,41 @@ MonoBehaviour:
     maxTemperature: 1
     minMoisture: 0
     maxMoisture: 1
+  Noise: {fileID: 11400000, guid: ca1655e117bac1247a13a1e86176bc48, type: 2}
+  MapSize: 200
+  HeightMultiplier: 30
+  heightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.29931933
+      outSlope: 0.29931933
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.33970535
+      value: 0.101680376
+      inSlope: 0.8299011
+      outSlope: 0.8299011
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.3604829
+      outSlope: 1.3604829
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  LOD: 1
+  Materials: []

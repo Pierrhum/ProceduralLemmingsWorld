@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9840d88e8152cb34b89e543797150d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawMode: 4
+  drawMode: 5
   size: 500
   temperatureNoise: {fileID: 11400000, guid: b48d6af54564f6c41a58e2358005c09c, type: 2}
   moistureNoise: {fileID: 11400000, guid: 2524fe417f0ba2b458d8f79d3065942b, type: 2}
