@@ -9,8 +9,8 @@ public class BiomeGenerator : MonoBehaviour
     [SerializeField] private int size = 100;
     
     [Header("Noise")] 
-    [SerializeField, DisplayInspector] private NoiseData moistureNoise;
     [SerializeField, DisplayInspector] private NoiseData temperatureNoise;
+    [SerializeField, DisplayInspector] private NoiseData moistureNoise;
     
     [SerializeField, DisplayInspector] private RegionData[] regionList;
 
@@ -23,10 +23,10 @@ public class BiomeGenerator : MonoBehaviour
             display.ResetDisplay(size);
         }
         else if (drawMode == DrawMode.temperatureMap) {
-            display.DrawNoiseMap(moistureNoise.GenerateMap(), size);
+            display.DrawNoiseMap(temperatureNoise.GenerateMap(), size);
         }
         else if (drawMode == DrawMode.MoistureMap) {
-            display.DrawNoiseMap(temperatureNoise.GenerateMap(), size);
+            display.DrawNoiseMap(moistureNoise.GenerateMap(), size);
         }
         else if (drawMode == DrawMode.LevelingColorMap) {
             display.DrawLevelingColorMap(regionList, size);

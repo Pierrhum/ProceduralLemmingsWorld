@@ -519,8 +519,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawMode: 4
   size: 500
-  moistureNoise: {fileID: 11400000, guid: 2524fe417f0ba2b458d8f79d3065942b, type: 2}
   temperatureNoise: {fileID: 11400000, guid: b48d6af54564f6c41a58e2358005c09c, type: 2}
+  moistureNoise: {fileID: 11400000, guid: 2524fe417f0ba2b458d8f79d3065942b, type: 2}
   regionList:
   - {fileID: 11400000, guid: 6b5d3db7ee2e35942a2eea7ccb2b798c, type: 2}
   - {fileID: 11400000, guid: 1bf1add929b96d14b9fdc595ac5265ca, type: 2}
