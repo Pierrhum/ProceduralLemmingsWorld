@@ -3,11 +3,8 @@ using UnityEngine;
 
 public class DisplayMapTexture : MonoBehaviour
 {
-    public Renderer textureRender;
-
     public void DrawNoiseMap(float[,] noiseMap, int size) {
         MeshData meshData = MeshGenerator.InitPlane(size);
-        textureRender.enabled = true;
         int width = size + 1;
         int height = size + 1;
 
@@ -29,7 +26,6 @@ public class DisplayMapTexture : MonoBehaviour
 
     public void DrawLevelingColorMap(BiomeData[] regionsData, int size) {
         MeshData meshData = MeshGenerator.InitPlane(size);
-        textureRender.enabled = true;
         int width = size, height = size;
         
         Texture2D texture = new Texture2D (width, height);
@@ -62,12 +58,10 @@ public class DisplayMapTexture : MonoBehaviour
         MeshCollider meshCollider = GetComponent<MeshCollider>();
         meshFilter.sharedMesh = mesh;
         meshCollider.sharedMesh = mesh;
-        textureRender.sharedMaterial.mainTexture = texture;
     }
 
     public void DrawColorBiomeZone(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size) {
         MeshData meshData = MeshGenerator.InitPlane(size);
-        textureRender.enabled = true;
         int width = size, height = size;
         Color[] biomeMap = new Color[width * height];
         
@@ -101,7 +95,6 @@ public class DisplayMapTexture : MonoBehaviour
 
     public void DrawBiomeHeightMap(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size) {
         MeshData meshData = MeshGenerator.InitPlane(size);
-        textureRender.enabled = true;
         int width = size, height = size;
         Color[] biomeMap = new Color[width * height];
 
@@ -140,7 +133,6 @@ public class DisplayMapTexture : MonoBehaviour
     }
 
     public void ResetDisplay(int size) {
-        textureRender.enabled = true;
         Color[] reset = new Color[size * size];
         Array.Fill(reset, Color.white);
         DrawTexture(TextureFromColorMap(reset, size, size));
@@ -156,9 +148,10 @@ public class DisplayMapTexture : MonoBehaviour
     }
     
     private void DrawTexture(Texture2D texture) {
-        // Material mat = textureRender.sharedMaterial;
-        // textureRender.sharedMaterial = new Material(mat);
-        textureRender.sharedMaterial.mainTexture = texture;
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        Material instance = new Material(renderer.sharedMaterial);
+        instance.mainTexture = texture;
+        renderer.sharedMaterial = instance;
     }
 
 }

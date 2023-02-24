@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Noise: {fileID: 11400000, guid: d4eb2c7d7a536a14f9c4b54f3804b6ad, type: 2}
   MapSize: 200
-  HeightMultiplier: 20
+  HeightMultiplier: 0
   heightCurve:
     serializedVersion: 2
     m_Curve:

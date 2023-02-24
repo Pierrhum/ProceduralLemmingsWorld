@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor (typeof (BiomeGenerator))]
+//[CustomEditor (typeof (BiomeGenerator))]
 public class BiomeGeneratorEditor : Editor {
 
 	public override void OnInspectorGUI() {

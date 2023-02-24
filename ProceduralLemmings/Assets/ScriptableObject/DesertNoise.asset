@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DesertNoise
   m_EditorClassIdentifier: 
   Seed: 0
-  Scale: 100
+  Scale: 50
+  Offset: {x: 0, y: 0}
   Octave: 3
   Persistence: 0.5
   Lacunarity: 0.3
-  Offset: {x: 0, y: 0}
