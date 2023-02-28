@@ -11,12 +11,20 @@ public class BiomeGenerator : MonoBehaviour
     public Vector2 Offset = Vector2.zero;
     
     [Header("Noise")] 
-    [SerializeField, DisplayInspector] private NoiseData temperatureNoise;
-    [SerializeField, DisplayInspector] private NoiseData moistureNoise;
-    
+    [SerializeField, DisplayInspector] private NoiseData temperatureData;
+    [SerializeField, DisplayInspector] private NoiseData moistureData;
     [SerializeField, DisplayInspector] private BiomeData[] regionList;
 
+    private float[,] temperatureNoise;
+    private float[,] moistureNoise;
+    
     public bool autoUpdate;
+
+    private void Awake()
+    {
+        temperatureNoise = temperatureData.GenerateMap(Vector2.zero);
+        moistureNoise = moistureData.GenerateMap(Vector2.zero);
+    }
 
     private void OnValidate()
     {
@@ -31,25 +39,25 @@ public class BiomeGenerator : MonoBehaviour
             display.ResetDisplay(size);
         }
         else if (drawMode == DrawMode.temperatureMap) {
-            temperatureNoise.Pos = Offset;
-            display.DrawNoiseMap(temperatureNoise.GenerateMap(), size);
+            //temperatureNoise.Pos = Offset;
+            display.DrawNoiseMap(temperatureNoise, size);
         }
         else if (drawMode == DrawMode.MoistureMap) {
-            moistureNoise.Pos = Offset;
-            display.DrawNoiseMap(moistureNoise.GenerateMap(), size);
+           // moistureNoise.Pos = Offset;
+            display.DrawNoiseMap(moistureNoise, size);
         }
         else if (drawMode == DrawMode.LevelingColorMap) {
             display.DrawLevelingColorMap(regionList, size);
         }
         else if (drawMode == DrawMode.BiomeColorMap) {
-            temperatureNoise.Pos = Offset;
-            moistureNoise.Pos = Offset;
-            display.DrawColorBiomeZone(temperatureNoise.GenerateMap(), moistureNoise.GenerateMap(), regionList, size);
+         //   temperatureNoise.Pos = Offset;
+           // moistureNoise.Pos = Offset;
+            display.DrawColorBiomeZone(temperatureNoise, moistureNoise, regionList, size);
         }
         else if (drawMode == DrawMode.BiomeHeightMap) {
-            temperatureNoise.Pos = Offset;
-            moistureNoise.Pos = Offset;
-            display.DrawBiomeHeightMap(temperatureNoise.GenerateMap(), moistureNoise.GenerateMap(), regionList, size);
+           // temperatureNoise.Pos = Offset;
+           // moistureNoise.Pos = Offset;
+            display.DrawBiomeHeightMap(temperatureNoise, moistureNoise, regionList, size);
         }
     }
 

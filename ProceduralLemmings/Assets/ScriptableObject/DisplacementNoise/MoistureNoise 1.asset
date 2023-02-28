@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3945d81488013a74c89a733123a612dc, type: 3}
   m_Name: MoistureNoise 1
   m_EditorClassIdentifier: 
-  Seed: 999
-  Scale: 2000
-  Offset: {x: 0, y: 10}
+  Seed: 1
+  Scale: 200
+  Offset: {x: 0, y: 0}
   Octave: 2
   Persistence: 3
   Lacunarity: 5
-  Offset: {x: 0, y: 10}

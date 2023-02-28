@@ -10,7 +10,7 @@ public class RidgedNoiseData : NoiseData
     public float Persistence = 0.5f;
     public float Lacunarity = 1.5f;
 
-    public override float[,] GenerateMap()
+    public override float[,] GenerateMap(Vector2 Pos)
     {
         float[,] noiseMap = new float[NoiseSize,NoiseSize];
         System.Random prng = new System.Random (Seed);

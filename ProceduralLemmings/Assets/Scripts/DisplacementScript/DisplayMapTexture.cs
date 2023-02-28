@@ -101,7 +101,7 @@ public class DisplayMapTexture : MonoBehaviour
         
         foreach (BiomeData biomeData in regionsData) {
             if (biomeData.Noise == null) continue;
-            float[,] heightMap = biomeData.Noise.GenerateMap();
+            float[,] heightMap = biomeData.Noise.GenerateMap(Vector2.zero);
             foreach (Zone regionDataZone in biomeData.zones) {
                 for (int x = 0; x < size; x++) {
                     for (int y = 0; y < size; y++) {
