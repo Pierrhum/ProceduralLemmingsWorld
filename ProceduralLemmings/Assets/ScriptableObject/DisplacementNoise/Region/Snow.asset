@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 0}
   zones:
-  - minTemperature: 0.85
-    maxTemperature: 1
+  - minTemperature: 0
+    maxTemperature: 0.2
     minMoisture: 0
     maxMoisture: 1
   Noise: {fileID: 11400000, guid: ca1655e117bac1247a13a1e86176bc48, type: 2}

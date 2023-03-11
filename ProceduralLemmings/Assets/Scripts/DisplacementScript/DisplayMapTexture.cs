@@ -24,42 +24,6 @@ public class DisplayMapTexture : MonoBehaviour
         DrawTexture(TextureFromColorMap(colourMap, width, height));
     }
 
-    public void DrawLevelingColorMap(BiomeData[] regionsData, int size) {
-        MeshData meshData = MeshGenerator.InitPlane(size);
-        int width = size, height = size;
-        
-        Texture2D texture = new Texture2D (width, height);
-        texture.filterMode = FilterMode.Point;
-        texture.wrapMode = TextureWrapMode.Clamp;
-
-        foreach (BiomeData regionData in regionsData) {
-            foreach (Zone regionDataZone in regionData.zones) {
-                int minX = (int)(width*regionDataZone.minMoisture);
-                int maxX = (int)(width*regionDataZone.maxMoisture);
-                if (maxX<minX) maxX = minX;
-                    
-                int minY = (int)(height*regionDataZone.minTemperature);
-                int maxY = (int)(height*regionDataZone.maxTemperature);
-                if (maxY<minY) maxY = minY;
-
-                int blockX = width - maxX;
-                int blockY = height - maxY;
-                int blockWidth = width - minX - blockX;
-                int blockHeight = height - minY - blockY;
-                Color[] block = new Color[blockWidth * blockHeight];
-                Array.Fill(block, regionData.color);
-                texture.SetPixels(blockX, blockY, blockWidth, blockHeight, block);
-            }
-        }
-        texture.Apply();
-        
-        Mesh mesh = meshData.CreateMesh();
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        MeshCollider meshCollider = GetComponent<MeshCollider>();
-        meshFilter.sharedMesh = mesh;
-        meshCollider.sharedMesh = mesh;
-    }
-
     public void DrawColorBiomeZone(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size) {
         MeshData meshData = MeshGenerator.InitPlane(size);
         int width = size, height = size;

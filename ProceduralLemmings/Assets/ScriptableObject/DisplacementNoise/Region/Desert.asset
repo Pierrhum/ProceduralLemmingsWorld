@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 0.8773585, g: 0.69423676, b: 0.27038085, a: 0}
   zones:
-  - minTemperature: 0.475
-    maxTemperature: 0.859
+  - minTemperature: 0.2
+    maxTemperature: 0.65
     minMoisture: 0
-    maxMoisture: 0.515
+    maxMoisture: 0.5
   Noise: {fileID: 11400000, guid: d4eb2c7d7a536a14f9c4b54f3804b6ad, type: 2}
   MapSize: 256
   HeightMultiplier: 2

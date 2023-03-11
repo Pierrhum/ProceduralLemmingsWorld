@@ -4,36 +4,42 @@ using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
 
+public enum DrawMode { None, temperatureMap, MoistureMap, BiomeColorMap, BiomeHeightMap};
+
 public class WorldGenerator : MonoBehaviour
 {
-    [Header("DrawMode")] 
-    [SerializeField] private DrawMode drawMode;
+    //[Header("DrawMode")] 
+    [SerializeField] [HideInInspector] private DrawMode drawMode;
+
+    //[Header("World parameters")]
+    [SerializeField] [HideInInspector] private int Scale = 200;
+    [SerializeField] [HideInInspector] private Vector2 Offset = Vector2.zero;
     
-    [Header("World parameters")]
-    [SerializeField] private int Seed = 0;
-    [SerializeField] private int Scale = 200;
-    [SerializeField] private Vector2 Offset = Vector2.zero;
+    //[Header("Chunks")] 
+    [SerializeField] [HideInInspector] private int ChunksNumber;
+    [SerializeField] [HideInInspector] private GameObject ChunkPrefab;
     
-    [Header("Chunks")] 
-    [SerializeField] private int ChunksNumber;
-    [SerializeField] private GameObject ChunkPrefab;
+    //[Header("Noise")] 
+    [SerializeField, DisplayInspector] [HideInInspector] private NoiseData temperatureData;
+    [SerializeField, DisplayInspector] [HideInInspector] private NoiseData moistureData;
+    [SerializeField, DisplayInspector] [HideInInspector] public BiomeData[] regionList;
     
-    [Header("Noise")] 
-    [SerializeField, DisplayInspector] private NoiseData temperatureData;
-    [SerializeField, DisplayInspector] private NoiseData moistureData;
-    [SerializeField, DisplayInspector] private BiomeData[] regionList;
+    [SerializeField] public bool autoUpdate;
     
-    private enum DrawMode { None, temperatureMap, MoistureMap, LevelingColorMap, BiomeColorMap, BiomeHeightMap};
     private float[,] temperatureNoise;
     private float[,] moistureNoise;
 
-    private List<Chunk> Chunks;
-    private void OnValidate()
-    {
-        temperatureData.Seed = Seed;
+    private List<Chunk> Chunks = new List<Chunk>();
+    
+    private void OnValidate() {
+        if (autoUpdate) {
+            OnGenerateWorld();
+        }
+    }
+
+    public void OnGenerateWorld(){
         temperatureData.Scale = Scale;
         temperatureData.Offset = Offset;
-        moistureData.Seed = Seed;
         moistureData.Scale = Scale;
         moistureData.Offset = Offset;
 
@@ -87,9 +93,6 @@ public class WorldGenerator : MonoBehaviour
         }
         else if (drawMode == DrawMode.MoistureMap) {
             display.DrawNoiseMap(moistureNoise, Scale);
-        }
-        else if (drawMode == DrawMode.LevelingColorMap) {
-            display.DrawLevelingColorMap(regionList, Scale);
         }
         else if (drawMode == DrawMode.BiomeColorMap) {
             display.DrawColorBiomeZone(temperatureNoise, moistureNoise, regionList, Scale);

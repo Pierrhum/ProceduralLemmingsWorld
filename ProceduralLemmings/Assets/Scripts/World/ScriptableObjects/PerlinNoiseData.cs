@@ -54,7 +54,6 @@ public class PerlinNoiseData : NoiseData
 
         noiseMap = NormalizeNoise(noiseMap);
 
-        Debug.Log(minNoiseHeight + " " + maxNoiseHeight);
         return noiseMap;
     }
 
