@@ -133,6 +133,48 @@ public class DisplayChunkTexture : MonoBehaviour
         DrawTexture(TextureFromColorMap(biomeMap, size, size));
         GetComponent<Chunk>().UpdateMesh(meshData.CreateMesh());
     }
+    
+    public void DrawMaterialsMap(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size)
+    {
+        MeshData meshData = GetComponent<Chunk>().meshData;
+        List<Material> _materials = new List<Material>();
+        int width = size, height = size;
+        Color[] biomeMap = new Color[width * height];
+
+        int subMesh = 0;
+        foreach (BiomeData biomeData in regionsData)
+        {
+            _materials.Add(biomeData.getMaterial(0));
+            float[,] heightMap = null;
+            if (biomeData.Noise != null) 
+                heightMap = biomeData.Noise.GenerateMap(Vector2.zero);
+            
+            foreach (Zone regionDataZone in biomeData.zones) {
+                for (int x = 0; x < size; x++) {
+                    for (int y = 0; y < size; y++) {
+                        //temperature value
+                        int nX = (int)(Mathf.InverseLerp(0, width, x) * NoiseData.NoiseSize);
+                        int nY = (int)(Mathf.InverseLerp(0, height, y) * NoiseData.NoiseSize);
+                        float currentTemperature = temperatureMap[nX, nY];
+                        float currentMoisture = moistureMap[nX, nY];
+                        if (currentTemperature >= regionDataZone.minTemperature && 
+                            currentMoisture >= regionDataZone.minMoisture && 
+                            currentTemperature <= regionDataZone.maxTemperature && 
+                            currentMoisture <= regionDataZone.maxMoisture)
+                        {
+                            meshData.SetSubMesh(x,y,subMesh);
+                            if(heightMap != null)
+                                meshData.ApplyHeightMap(x,y,heightMap[nX, nY],  biomeData.HeightMultiplier, biomeData.heightCurve);
+                        }
+                    }
+                }
+            }
+
+            subMesh++;
+        }
+        
+        GetComponent<Chunk>().UpdateMesh(meshData.CreateMesh(), _materials);
+    }
 
     public void ResetDisplay(int size) {
         Color[] reset = new Color[size * size];

@@ -55,4 +55,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   LOD: 1
-  Materials: []
+  Materials:
+  - zMax: 10
+    material: {fileID: 2100000, guid: d89c0e60b2de468439d37136d52f6b95, type: 2}

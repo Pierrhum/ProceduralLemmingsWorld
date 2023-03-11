@@ -18,7 +18,22 @@ public class BiomeData : ScriptableObject
 
 	[Header("Materials")] 
 	public List<BiomeMaterials> Materials;
-	
+
+	/// <summary>
+	/// Return the closest material of the biome, based on height 
+	/// </summary>
+	/// <param name="z">Height value</param>
+	/// <returns>Biome material</returns>
+	public Material getMaterial(float z)
+	{
+		BiomeMaterials highestBiomeMat = Materials[0];
+		
+		foreach(BiomeMaterials biomeMat in Materials)
+			if (z < biomeMat.zMax && highestBiomeMat.zMax < biomeMat.zMax)
+				highestBiomeMat = biomeMat;
+
+		return highestBiomeMat.material;
+	}
 }
 
 

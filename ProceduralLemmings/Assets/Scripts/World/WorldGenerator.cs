@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
 
-public enum DrawMode { None, temperatureMap, MoistureMap, BiomeColorMap, BiomeHeightMap};
+public enum DrawMode { None, temperatureMap, MoistureMap, BiomeColorMap, BiomeHeightMap, MaterialsMap};
 
 public class WorldGenerator : MonoBehaviour
 {
@@ -72,7 +72,7 @@ public class WorldGenerator : MonoBehaviour
                 // Création/Position du mesh 
                 GameObject go = Instantiate(ChunkPrefab, ChunkPos, Quaternion.identity, transform);
                 Chunk chunk = go.GetComponent<Chunk>();
-                chunk.CreateMesh(Scale);
+                chunk.CreateMesh(Scale, drawMode == DrawMode.MaterialsMap ? regionList.Length : -1);
                 // Génération/Position du bruit
                 temperatureNoise = temperatureData.GenerateMap(NoisePos);
                 moistureNoise = moistureData.GenerateMap(NoisePos);
@@ -99,6 +99,9 @@ public class WorldGenerator : MonoBehaviour
         }
         else if (drawMode == DrawMode.BiomeHeightMap) {
             display.DrawBiomeHeightMap(temperatureNoise, moistureNoise, regionList, Scale);
+        }
+        else if (drawMode == DrawMode.MaterialsMap) {
+            display.DrawMaterialsMap(temperatureNoise, moistureNoise, regionList, Scale);
         }
         
     }
