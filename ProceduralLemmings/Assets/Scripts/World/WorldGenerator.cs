@@ -39,8 +39,8 @@ public class WorldGenerator : MonoBehaviour
 
         foreach (Transform child in transform)
             StartCoroutine(DestroyOnValidate(child.gameObject));
-        
-        Chunks.Clear();
+        if(Chunks.Count > 0)
+            Chunks.Clear();
         GenerateChunks();
     }
     
@@ -57,6 +57,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void GenerateChunks()
     {
+        Chunks = new List<Chunk>();
         for (int x = 0; x < ChunksNumber; x++)
             for (int y = 0; y < ChunksNumber; y++)
             {
@@ -77,7 +78,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void DrawChunk(Chunk chunk)
     {
-        DisplayMapTexture display = chunk.GetComponent<DisplayMapTexture>();
+        DisplayChunkTexture display = chunk.GetComponent<DisplayChunkTexture>();
         if (drawMode == DrawMode.None) {
             display.ResetDisplay(Scale);
         }

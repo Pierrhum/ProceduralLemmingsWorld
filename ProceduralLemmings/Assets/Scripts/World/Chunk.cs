@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Chunk : MonoBehaviour
 {
+    [NonSerialized] public MeshData meshData;
+    [NonSerialized] public Mesh mesh;
     private int Size;
-    private MeshData meshData;
-    private Mesh mesh;
     public void CreateMesh(int ChunkSize)
     {
         Size = ChunkSize;
@@ -42,6 +43,15 @@ public class Chunk : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void UpdateMesh(Mesh _mesh)
+    {
+        mesh = _mesh;
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        MeshCollider meshCollider = GetComponent<MeshCollider>();
+        meshFilter.sharedMesh = mesh;
+        meshCollider.sharedMesh = mesh;
     }
     
     private Texture2D BuildTexture(float[,] heightMap, bool noise=true) {
