@@ -6,8 +6,9 @@ using UnityEngine;
 public class BiomeData : ScriptableObject
 {
 	public Color color;
-	public Zone[] zones;
-	
+	public RegionLevel[] zones;
+	public List<Vector2> regionMap = new List<Vector2>();
+
 	[Header("Noise")] public NoiseData Noise;
 
 	[Header("Mesh")] 
@@ -21,7 +22,6 @@ public class BiomeData : ScriptableObject
 	
 }
 
-
 [Serializable]
 public struct BiomeMaterials
 {
@@ -30,7 +30,9 @@ public struct BiomeMaterials
 }
 
 [Serializable]
-public struct Zone {
+public struct RegionLevel
+{
+	public int idBiome;
 	[Range(0.0f, 1.0f)] public float minTemperature;
 	[Range(0.0f, 1.0f)] public float maxTemperature;
 	[Range(0.0f, 1.0f)] public float minMoisture;

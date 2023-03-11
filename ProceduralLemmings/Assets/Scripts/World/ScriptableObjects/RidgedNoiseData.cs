@@ -9,7 +9,6 @@ public class RidgedNoiseData : NoiseData
     public int Octave = 5;
     public float Persistence = 0.5f;
     public float Lacunarity = 1.5f;
-    public Vector2 Offset = Vector2.zero;
 
     public override float[,] GenerateMap()
     {

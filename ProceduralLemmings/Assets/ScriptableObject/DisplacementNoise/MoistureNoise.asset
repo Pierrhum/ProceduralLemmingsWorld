@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: MoistureNoise
   m_EditorClassIdentifier: 
   Seed: 999
-  Scale: 2000
-  Offset: {x: 0, y: 0}
-  Octave: 2
+  Scale: 256
+  Offset: {x: 4.95, y: 0}
+  Octave: 3
   Persistence: 3
-  Lacunarity: 5
-  Offset: {x: 0, y: 0}
+  Lacunarity: 1.11

@@ -37,7 +37,7 @@ public class DisplayMapTexture : MonoBehaviour
         texture.wrapMode = TextureWrapMode.Clamp;
 
         foreach (BiomeData regionData in regionsData) {
-            foreach (Zone regionDataZone in regionData.zones) {
+            foreach (RegionLevel regionDataZone in regionData.zones) {
                 int minX = (int)(width*regionDataZone.minMoisture);
                 int maxX = (int)(width*regionDataZone.maxMoisture);
                 if (maxX<minX) maxX = minX;
@@ -79,7 +79,7 @@ public class DisplayMapTexture : MonoBehaviour
                 float currentMoisture = moistureMap[nX, nY];
 
                 foreach (BiomeData biomeData in regionsData) {
-                    foreach (Zone regionDataZone in biomeData.zones) {
+                    foreach (RegionLevel regionDataZone in biomeData.zones) {
                         if (currentTemperature >= regionDataZone.minTemperature && 
                             currentMoisture >= regionDataZone.minMoisture && 
                             currentTemperature <= regionDataZone.maxTemperature && 
@@ -109,7 +109,7 @@ public class DisplayMapTexture : MonoBehaviour
         foreach (BiomeData biomeData in regionsData) {
             if (biomeData.Noise == null) continue;
             float[,] heightMap = biomeData.Noise.GenerateMap();
-            foreach (Zone regionDataZone in biomeData.zones) {
+            foreach (RegionLevel regionDataZone in biomeData.zones) {
                 for (int x = 0; x < size; x++) {
                     for (int y = 0; y < size; y++) {
                         //temperature value
