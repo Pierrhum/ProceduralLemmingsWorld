@@ -8,12 +8,15 @@ public enum InitialPointType { Center, Random, FromTransformReference, FromAlgor
 
 public class SeedGenerator : MonoBehaviour
 {
+	[SerializeField] [HideInInspector] private MeshRenderer meshRenderer;
+	[SerializeField] [HideInInspector] private Chunk chunk;
+	
 	[SerializeField] [HideInInspector] private InitialPointType initialPointType;
 	[SerializeField] [HideInInspector] private SeedGenerator initialReferencesPoints;
 	[SerializeField] [HideInInspector] private Transform transformReference;
 	
 	[SerializeField] [HideInInspector] private RandomAlgoName algo;
-	
+
 	// PoissonDisc Values
 	[SerializeField] [HideInInspector] [Range(1, 5)] private int rejectionSamples = 1;
 	[SerializeField] [HideInInspector] private Vector2 range = new(5, 7);
@@ -33,7 +36,7 @@ public class SeedGenerator : MonoBehaviour
 	[SerializeField] [HideInInspector] private Color gizmosColor = Color.red;
 	[SerializeField] [HideInInspector] private float gizmosRadius = 0.1f;
 
-	[SerializeField] public bool autoUpdate;
+	[SerializeField] [HideInInspector] public bool autoUpdate;
 
 	private List<Vector3> _initPositionIntoPlan = new List<Vector3>();
 	private Vector3 _transformPos;
@@ -44,21 +47,80 @@ public class SeedGenerator : MonoBehaviour
 		get {
 			List<Vector3> pointsXZ = new List<Vector3>();
 			if (_points != null && _points.Count != 0) {
-				foreach (Vector3 point in _points) {
-					pointsXZ.Add(new(point.x, 0, point.y));
+				foreach (Vector2 point in _points) {
+					pointsXZ.Add(new(point.x - _regionSize.x/2, 0, point.y - _regionSize.z/2));
 				}
 			}
 			return pointsXZ;
 		}
 	}
+	
+	public List<Vector3> GetWorldPoints() {
+		List<Vector3> pointsXZ = new List<Vector3>();
+		if (_points != null && _points.Count != 0) {
+			Vector3 actualTransformPos = transform.position;
+			foreach (Vector2 point in _points) {
+				Vector3 pointXZ = new(point.x, _transformPos.y, point.y);
+				Vector3 pointSum = pointXZ + actualTransformPos - _regionSize / 2;
+						
+				Vector3 pointXZTop = new(0, _regionSize.y, 0);
+				Gizmos.DrawLine(pointSum + pointXZTop, pointSum);
+
+				RaycastHit hitResult;
+				if (Physics.Linecast(pointSum + pointXZTop, pointSum , out hitResult)) {
+					if (hitResult.collider.bounds == meshRenderer.bounds) {
+						pointSum = hitResult.point;
+					}
+				}
+				
+				pointsXZ.Add(pointSum);
+				
+			}
+		}
+		return pointsXZ;
+	}
+
+	public List<Vector3> GetWorldPointInBiome(int biomeIndex) {
+		List<Vector3> pointsXZ = new List<Vector3>();
+		if (_points != null && _points.Count != 0) {
+			Vector3 actualTransformPos = transform.position;
+			foreach (Vector2 point in _points) {
+				Vector3 pointXZ = new(point.x, _transformPos.y, point.y);
+				Vector3 pointSum = pointXZ + actualTransformPos - _regionSize / 2;
+						
+				Vector3 pointXZTop = new(0, _regionSize.y, 0);
+				//Gizmos.DrawLine(pointSum + pointXZTop, pointSum);
+
+				RaycastHit hitResult;
+				if (Physics.Linecast(pointSum + pointXZTop, pointSum , out hitResult)) {
+					if (hitResult.collider.bounds == meshRenderer.bounds) {
+						pointSum = hitResult.point;
+					}
+				}
+				// Debug.Log(chunk.GetBiomeAt((int)point.x, (int)point.y));
+				if (chunk.GetBiomeAt((int)point.x, (int)point.y) == biomeIndex) {
+					pointsXZ.Add(pointSum);
+				}
+			}
+		}
+		return pointsXZ;
+	}
 
 	private void Awake() {
-		GenerateSeed();
+		 GenerateSeed();
 	}
 
 	private void InitValues() {
-		_regionSize = GetComponent<MeshRenderer>().bounds.size;
-		_transformPos = transform.position;
+		if (meshRenderer == null) {
+			meshRenderer = GetComponent<MeshRenderer>();
+		}
+		if (chunk == null) {
+			chunk = GetComponentInParent<Chunk>();
+		}
+		_regionSize = meshRenderer.bounds.size;
+		
+		Vector3 regionSizeYPos = new(0, _regionSize.y/2, 0);
+		_transformPos = transform.position + regionSizeYPos;
 		// SavePositionForGizmos();
 
 		if (_initPositionIntoPlan.Count != 0) {
@@ -87,7 +149,7 @@ public class SeedGenerator : MonoBehaviour
 			case InitialPointType.FromAlgorithmReference :
 				if (initialReferencesPoints != null && initialReferencesPoints.GetPoints.Count != 0) {
 					foreach (Vector3 refPoint in initialReferencesPoints.GetPoints) {
-						_initPositionIntoPlan.Add(refPoint - _regionSize/2);
+						_initPositionIntoPlan.Add(refPoint);
 					}
 				}
 				break;
@@ -124,11 +186,14 @@ public class SeedGenerator : MonoBehaviour
 				Vector3 actualTransformPos = transform.position;
 				switch (algo) {
 				case RandomAlgoName.PoissonDisc :
-					foreach (Vector2 point in _points) {
-						Vector3 pointXZ = new(point.x, 0, point.y);
-						Gizmos.DrawSphere(pointXZ + actualTransformPos - _regionSize/2, gizmosRadius);
-						Handles.DrawWireDisc(pointXZ + actualTransformPos - _regionSize/2, Vector3.up, range.x);  
-						Handles.DrawWireDisc(pointXZ + actualTransformPos - _regionSize/2, Vector3.up, range.y);
+					// foreach (Vector3 point in GetWorldPoints()) {
+					foreach (Vector3 point in GetWorldPointInBiome(3)) {
+						Vector3 pointXZBot = new(point.x, actualTransformPos.y, point.z);
+						Vector3 pointXZTop = new(point.x, actualTransformPos.y + _regionSize.y, point.z);
+						Gizmos.DrawLine(pointXZTop, pointXZBot);
+						Gizmos.DrawSphere(point, gizmosRadius);
+						Handles.DrawWireDisc(pointXZBot, Vector3.up, range.x);
+						Handles.DrawWireDisc(pointXZBot, Vector3.up, range.y);
 					}
 					break;
 				case RandomAlgoName.Noise :
@@ -143,9 +208,8 @@ public class SeedGenerator : MonoBehaviour
 						Handles.DrawWireDisc(actualTransformPos + initPosition, Vector3.up, radiusValidZone);
 					}
 
-					foreach (Vector2 point in _points) {
-						Vector3 pointXZ = new(point.x, 0, point.y);
-						Gizmos.DrawSphere(pointXZ + actualTransformPos - _regionSize/2 , gizmosRadius);
+					foreach (Vector3 point in GetWorldPoints()) { 
+						Gizmos.DrawSphere(point, gizmosRadius);
 					}
 					break;
 				case RandomAlgoName.FairyRing :
@@ -159,9 +223,8 @@ public class SeedGenerator : MonoBehaviour
 							Gizmos.DrawLine(actualTransformPos + initPosition, radiusRange);
 						}
 					}
-					foreach (Vector2 point in _points) {
-						Vector3 pointXZ = new(point.x, 0, point.y);
-						Gizmos.DrawSphere(pointXZ + actualTransformPos - _regionSize/2 , gizmosRadius);
+					foreach (Vector3 point in GetWorldPoints()) {
+						Gizmos.DrawSphere(point, gizmosRadius);
 					}
 					foreach (Vector3 initPosition in _initPositionIntoPlan) {
 						Handles.DrawWireDisc(actualTransformPos + initPosition, Vector3.up, ringRangeRadius.x);
@@ -171,7 +234,7 @@ public class SeedGenerator : MonoBehaviour
 				}
 			}
 			Gizmos.color = Color.white;
-			Gizmos.DrawWireCube(transform.position, _regionSize);
+			Gizmos.DrawWireCube(_transformPos, _regionSize);
 			
 			if (initialPointType == InitialPointType.FromTransformReference && transformReference != null) {
 				Gizmos.color = Color.black;

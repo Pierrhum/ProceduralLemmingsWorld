@@ -18,6 +18,11 @@ public abstract class NoiseData : ScriptableObject
     protected float maxNoiseHeight = float.MinValue;
     public abstract float[,] GenerateMap(Vector2 Pos);
 
+    public void ResetNoiseBounds() {
+        minNoiseHeight = float.MaxValue;
+        maxNoiseHeight = float.MinValue;
+    }
+
     protected float[,] NormalizeNoise(float[,] noiseMap)
     {
         for (int y = 0; y < NoiseSize; y++) 

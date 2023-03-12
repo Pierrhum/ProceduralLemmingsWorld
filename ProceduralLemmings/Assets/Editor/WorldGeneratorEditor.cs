@@ -19,10 +19,38 @@ public class WorldGeneratorEditor : Editor
 
 	void OnSceneGUI() {
 		Handles.BeginGUI();
-		GUILayout.BeginArea(new Rect(10, 155, 100, 100));
+		
+		GUILayout.BeginArea(new Rect(8, 150, 150, 100));
+		GUI.color = Color.white;
+		GUILayout.Label("LvlMap Preview");
+		GUILayout.EndArea();
+		GUILayout.BeginArea(new Rect(10, 165, 100, 100));
 		Texture2D levelingColorMapTexture = DrawLevelingColorMap(_wGen.regionList, 100);
 		EditorGUI.DrawPreviewTexture(new Rect(0, 0, 100, 100), levelingColorMapTexture);
 		GUILayout.EndArea();
+		
+		if (_wGen.TemperatureNoise != null) {
+			GUILayout.BeginArea(new Rect(8, 270, 150, 100));
+			GUI.color = Color.white;
+			GUILayout.Label("TempMap Preview");
+			GUILayout.EndArea();
+			GUILayout.BeginArea(new Rect(10, 285, 100, 100));
+			Texture2D tempNoiseMapTexture = DrawNoiseMap(_wGen.TemperatureNoise, _wGen.Scale);
+			EditorGUI.DrawPreviewTexture(new Rect(0, 0, 100, 100), tempNoiseMapTexture);
+			GUILayout.EndArea();
+		}
+		
+		if (_wGen.MoistureNoise != null) {
+			GUILayout.BeginArea(new Rect(8, 385, 150, 100));
+			GUI.color = Color.white;
+			GUILayout.Label("MoisMap Preview");
+			GUILayout.EndArea();
+			GUILayout.BeginArea(new Rect(10, 400, 100, 100));
+			Texture2D tempNoiseMapTexture = DrawNoiseMap(_wGen.MoistureNoise, _wGen.Scale);
+			EditorGUI.DrawPreviewTexture(new Rect(0, 0, 100, 100), tempNoiseMapTexture);
+			GUILayout.EndArea();
+		}
+		
 		Handles.EndGUI();
 	}
 	
@@ -67,6 +95,26 @@ public class WorldGeneratorEditor : Editor
 	
 		_currentTransformPosition = _mapGenTransform.position;
 		_currentTransformScale = _mapGenTransform.lossyScale;
+	}
+	
+	public Texture2D DrawNoiseMap(float[,] noiseMap, int size) {
+		int width = size +1;
+		int height = size +1;
+		
+		Texture2D texture = new Texture2D(width, height);
+		texture.filterMode = FilterMode.Point;
+		texture.wrapMode = TextureWrapMode.Clamp;
+
+		for (int y = 0; y < width; y++) {
+			for (int x = 0; x < height; x++) {
+				int cX = (int)(Mathf.InverseLerp(0, width, x) * noiseMap.GetLength(0));
+				int cY = (int)(Mathf.InverseLerp(0, height, y) * noiseMap.GetLength(1));
+				Color c = new Color(noiseMap[cX, cY], noiseMap[cX, cY], noiseMap[cX, cY]); //Color.Lerp(Color.black, Color.white, noiseMap[cX, cY]);
+				texture.SetPixel(x, y, c);
+			}
+		}
+		texture.Apply();
+		return texture;
 	}
 	
 	private Texture2D DrawLevelingColorMap(BiomeData[] regionsData, int size) {

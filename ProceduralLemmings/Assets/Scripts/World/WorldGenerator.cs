@@ -12,7 +12,7 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] [HideInInspector] private DrawMode drawMode;
 
     //[Header("World parameters")]
-    [SerializeField] [HideInInspector] private int Scale = 200;
+    [SerializeField] [HideInInspector] public int Scale = 200;
     [SerializeField] [HideInInspector] private Vector2 Offset = Vector2.zero;
     
     //[Header("Chunks")] 
@@ -27,7 +27,10 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] public bool autoUpdate;
     
     private float[,] temperatureNoise;
+    public float[,] TemperatureNoise { get { return temperatureNoise; } }
+    
     private float[,] moistureNoise;
+    public float[,] MoistureNoise { get { return moistureNoise; } }
 
     private List<Chunk> Chunks = new List<Chunk>();
     
@@ -64,6 +67,8 @@ public class WorldGenerator : MonoBehaviour
     private void GenerateChunks()
     {
         Chunks = new List<Chunk>();
+        // temperatureData.ResetNoiseBounds();
+        // moistureData.ResetNoiseBounds();
         for (int x = 0; x < ChunksNumber; x++)
             for (int y = 0; y < ChunksNumber; y++)
             {

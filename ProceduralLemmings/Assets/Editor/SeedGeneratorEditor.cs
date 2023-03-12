@@ -19,6 +19,9 @@ public class SeedGeneratorEditor : Editor
         serializedObject.Update();
         
         GUILayout.Space(10);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("meshRenderer"));
+        
+        GUILayout.Space(10);
         GUILayout.Label("Initial point reference :", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("initialPointType"));
         if (serializedObject.FindProperty("initialPointType").intValue == (int)InitialPointType.FromAlgorithmReference) {
@@ -99,6 +102,7 @@ public class SeedGeneratorEditor : Editor
 
         if (GUILayout.Button ("Generate")) {
             _mapGen.GenerateSeed();
+            
         }
 
         _currentTransformPosition = _mapGenTransform.position;

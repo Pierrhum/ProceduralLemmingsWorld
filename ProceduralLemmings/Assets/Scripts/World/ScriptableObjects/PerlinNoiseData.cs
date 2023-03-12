@@ -7,8 +7,10 @@ public class PerlinNoiseData : NoiseData
 {
 	[Header("Perlin Noise")]
     public int Octave = 5;
+    //[Range(0.0f, 1.0f)] 
     public float Persistence = 0.5f;
-    public float Lacunarity = 1.5f;
+    //[Range(0.0f, 1.0f)]
+    public float Lacunarity = 1f;
     
     public override float[,] GenerateMap(Vector2 Pos)
     {
@@ -24,6 +26,8 @@ public class PerlinNoiseData : NoiseData
 
         float halfSize = NoiseSize / 2f;
 
+        // maxNoiseHeight = float.MinValue;
+        // minNoiseHeight = float.MaxValue;
 
         for (int y = 0; y < NoiseSize; y++) {
         	for (int x = 0; x < NoiseSize; x++) {
