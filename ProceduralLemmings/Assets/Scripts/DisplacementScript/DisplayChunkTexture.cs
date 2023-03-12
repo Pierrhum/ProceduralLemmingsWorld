@@ -139,7 +139,6 @@ public class DisplayChunkTexture : MonoBehaviour
         MeshData meshData = GetComponent<Chunk>().meshData;
         List<Material> _materials = new List<Material>();
         int width = size, height = size;
-        Color[] biomeMap = new Color[width * height];
 
         int subMesh = 0;
         foreach (BiomeData biomeData in regionsData)
@@ -173,6 +172,7 @@ public class DisplayChunkTexture : MonoBehaviour
             subMesh++;
         }
         
+        int b = meshData.GetBiomeAt(size / 2, size / 2);
         GetComponent<Chunk>().UpdateMesh(meshData.CreateMesh(), _materials);
     }
 

@@ -27,4 +27,9 @@ public class Chunk : MonoBehaviour
         if (materials != null)
             GetComponent<MeshRenderer>().materials = materials.ToArray();
     }
+
+    public int GetBiomeAt(int x, int y)
+    {
+        return meshData.GetBiomeAt(x,y);
+    }
 }

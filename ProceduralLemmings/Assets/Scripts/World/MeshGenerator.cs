@@ -66,6 +66,7 @@ public class MeshData {
 	public Vector3[] vertices;
 	public int[] triangles;
 	private List<int>[] _submeshTriangles;
+	public int[] biomeMap;
 	public Vector2[] uvs;
 
 	int triangleIndex;
@@ -78,7 +79,8 @@ public class MeshData {
 	{
 		_meshWidth = meshWidth;
 		_meshHeight = meshHeight;
-		
+
+		biomeMap = new int[meshWidth * meshHeight];
 		vertices = new Vector3[meshWidth * meshHeight];
 		uvs = new Vector2[meshWidth * meshHeight];
 		triangles = new int[(meshWidth-1)*(meshHeight-1)*6];
@@ -110,6 +112,8 @@ public class MeshData {
 	public void SetSubMesh(int x, int y, int submesh)
 	{
 		int vertexIndex = y * _meshWidth + x;
+		biomeMap[vertexIndex] = submesh;
+		
 		_submeshTriangles[submesh].Add(vertexIndex + _meshHeight); 
 		_submeshTriangles[submesh].Add(vertexIndex + 1); 
 		_submeshTriangles[submesh].Add(vertexIndex); 
@@ -117,6 +121,12 @@ public class MeshData {
 		_submeshTriangles[submesh].Add(vertexIndex + _meshHeight); 
 		_submeshTriangles[submesh].Add(vertexIndex + _meshHeight + 1); 
 		_submeshTriangles[submesh].Add(vertexIndex + 1); 
+	}
+
+	public int GetBiomeAt(int x, int y)
+	{
+		int vertexIndex = y * _meshWidth + x;
+		return biomeMap[vertexIndex];
 	}
 
 	public Mesh CreateMesh() {
