@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3945d81488013a74c89a733123a612dc, type: 3}
   m_Name: TemperatureNoise
   m_EditorClassIdentifier: 
-  Seed: 9
+  Seed: 99
   Scale: 255
   Offset: {x: 0, y: 0}
   Octave: 5
-  Persistence: 0.5
-  Lacunarity: 2
+  Persistence: 0.2
+  Lacunarity: 6

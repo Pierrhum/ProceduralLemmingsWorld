@@ -17,4 +17,4 @@ MonoBehaviour:
   Offset: {x: 0, y: 0}
   Octave: 5
   Persistence: 0.2
-  Lacunarity: 3
+  Lacunarity: 4

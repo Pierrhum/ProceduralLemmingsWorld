@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.076042175, b: 1, a: 0}
   zones:
-  - minTemperature: 0.85
+  - minTemperature: 0.6
     maxTemperature: 1
     minMoisture: 0
     maxMoisture: 1

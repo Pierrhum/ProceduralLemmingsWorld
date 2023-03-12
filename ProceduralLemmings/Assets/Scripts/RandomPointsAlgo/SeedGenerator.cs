@@ -186,8 +186,8 @@ public class SeedGenerator : MonoBehaviour
 				Vector3 actualTransformPos = transform.position;
 				switch (algo) {
 				case RandomAlgoName.PoissonDisc :
-					// foreach (Vector3 point in GetWorldPoints()) {
-					foreach (Vector3 point in GetWorldPointInBiome(3)) {
+					foreach (Vector3 point in GetWorldPoints()) {
+					// foreach (Vector3 point in GetWorldPointInBiome(3)) {
 						Vector3 pointXZBot = new(point.x, actualTransformPos.y, point.z);
 						Vector3 pointXZTop = new(point.x, actualTransformPos.y + _regionSize.y, point.z);
 						Gizmos.DrawLine(pointXZTop, pointXZBot);
