@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3754325523902582405}
   - component: {fileID: 7844603728344913290}
+  - component: {fileID: 1049144447009590346}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -50,15 +51,30 @@ MonoBehaviour:
   initialReferencesPoints: {fileID: 0}
   transformReference: {fileID: 0}
   algo: 0
-  rejectionSamples: 1
-  range: {x: 5, y: 7}
+  rejectionSamples: 5
+  range: {x: 1.53, y: 3.53}
   xNbRegionSplit: 1
   zNbRegionSplit: 1
   radiusValidZone: 3
   ringRangeRadius: {x: 5, y: 7}
   nbMushroomsOnRing: 10
   isDoubleRing: 0
-  showGizmos: 1
+  showGizmos: 0
   gizmosColor: {r: 0.10691398, g: 0.4716981, b: 0, a: 1}
   gizmosRadius: 1
   autoUpdate: 0
+--- !u!114 &1049144447009590346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3524013748042395843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36622ec2505df542b0ca49fe1cbe716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seedGenerator: {fileID: 7844603728344913290}
+  GrassRefList:
+  - {fileID: 1298312920657734, guid: 26555b26396cb3e4c98a3fe5b98ad384, type: 3}

@@ -64,7 +64,7 @@ public class SeedGenerator : MonoBehaviour
 				Vector3 pointSum = pointXZ + actualTransformPos - _regionSize / 2;
 						
 				Vector3 pointXZTop = new(0, _regionSize.y, 0);
-				Gizmos.DrawLine(pointSum + pointXZTop, pointSum);
+				//Gizmos.DrawLine(pointSum + pointXZTop, pointSum);
 
 				RaycastHit hitResult;
 				if (Physics.Linecast(pointSum + pointXZTop, pointSum , out hitResult)) {

@@ -40,6 +40,10 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
+    private void Start() {
+        OnGenerateWorld();
+    }
+
     public void OnGenerateWorld(){
         temperatureData.Scale = Scale;
         temperatureData.Offset = Offset;
