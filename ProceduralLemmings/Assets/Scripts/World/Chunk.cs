@@ -30,6 +30,8 @@ public class Chunk : MonoBehaviour
 
     public int GetBiomeAt(int x, int y)
     {
-        return meshData.GetBiomeAt(x,y);
+        if(meshData != null)
+            return meshData.GetBiomeAt(x,y);
+        return -1;
     }
 }

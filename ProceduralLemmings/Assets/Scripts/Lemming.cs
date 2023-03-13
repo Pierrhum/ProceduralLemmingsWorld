@@ -14,7 +14,7 @@ public class Lemming : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    void SetBiome(int biome, List<Vector3> path=null)
+    public void SetBiome(int biome, List<Vector3> path=null)
     {
         _animator.SetInteger("Biome", biome);
         _animator.SetBool("Static", path==null);

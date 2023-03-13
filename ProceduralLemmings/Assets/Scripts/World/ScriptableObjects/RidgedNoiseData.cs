@@ -15,22 +15,17 @@ public class RidgedNoiseData : NoiseData
         float[,] noiseMap = new float[NoiseSize,NoiseSize];
         System.Random prng = new System.Random (Seed);
         
-        Vector2[] octaveOffsets = new Vector2[Octave];
-        for (int i = 0; i < Octave; i++) {
-            float offsetX = prng.Next (-100000, 100000) + Offset.x;
-            float offsetY = prng.Next (-100000, 100000) - Offset.y;
-            octaveOffsets [i] = new Vector2 (offsetX, offsetY);
-        }
+        float offsetX = prng.Next (-100000, 100000);
+        float offsetY = prng.Next (-100000, 100000);
 
         if (Scale <= 0) {
             Scale = 0.0001f;
         }
 
-        float maxNoiseHeight = float.MinValue;
-        float minNoiseHeight = float.MaxValue;
+        //float maxNoiseHeight = float.MinValue;
+        //float minNoiseHeight = float.MaxValue;
         
-        float halfWidth = NoiseSize / 2f;
-        float halfHeight = NoiseSize / 2f;
+        float halfSize = NoiseSize / 2f;
 
 
         for (int y = 0; y < NoiseSize; y++) {
@@ -38,28 +33,27 @@ public class RidgedNoiseData : NoiseData
         
                 float amplitude = 1;
                 float frequency = 1;
-                float noiseValue = 0;
+                float noiseHeight = 0;
 
                 for (int i = 0; i < Octave; i++) {
-                    float sampleX = (x-halfWidth) / Scale * frequency + octaveOffsets[i].x;
-                    float sampleY = (y-halfHeight) / Scale * frequency + octaveOffsets[i].y;
+                    float sampleX = (Pos.x + (x-halfSize)) / Scale * frequency + offsetX;
+                    float sampleY = (Pos.y + (y-halfSize)) / Scale * frequency + offsetY;
 
                     float v = Mathf.PerlinNoise (sampleX, sampleY) * 2 - 1;
                     v = 1 - Mathf.Abs(v);
                     v *= v;
                     
-                    noiseValue += v * amplitude;
+                    noiseHeight += v * amplitude;
                     amplitude *= Persistence;
                     frequency *= Lacunarity;
                 }
                 
-                
-                if (noiseValue > maxNoiseHeight) {
-                    maxNoiseHeight = noiseValue;
-                } else if (noiseValue < minNoiseHeight) {
-                    minNoiseHeight = noiseValue;
-                }
-                noiseMap [x, y] = noiseValue;
+                // Min and Max Update
+                if (noiseHeight > maxNoiseHeight) maxNoiseHeight = noiseHeight;
+                else if (noiseHeight < minNoiseHeight) minNoiseHeight = noiseHeight;
+        		
+                // NoiseMap sample
+                noiseMap [x, y] = noiseHeight;
             }
         }
 

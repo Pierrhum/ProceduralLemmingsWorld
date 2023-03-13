@@ -12,7 +12,7 @@ public class SpownGrass : MonoBehaviour
             seedGenerator = GetComponent<SeedGenerator>();
         }
         seedGenerator.GenerateSeed();
-        List<Vector3> pointTreeList = seedGenerator.GetWorldPointInBiome(3);
+        List<Vector3> pointTreeList = seedGenerator.GetWorldPointInBiome(1);
         foreach (Vector3 point in pointTreeList) {
             AddGrass(point);
         }

@@ -20,7 +20,7 @@ MonoBehaviour:
     maxMoisture: 1
   Noise: {fileID: 11400000, guid: d7466da17e4774f4982d6b8f592bbe02, type: 2}
   MapSize: 256
-  HeightMultiplier: 5
+  HeightMultiplier: 15
   heightCurve:
     serializedVersion: 2
     m_Curve:

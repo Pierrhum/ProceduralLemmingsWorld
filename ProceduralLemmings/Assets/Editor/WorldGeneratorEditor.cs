@@ -64,7 +64,6 @@ public class WorldGeneratorEditor : Editor
 		GUILayout.Space(10);
 		GUILayout.Label("World parameters", EditorStyles.boldLabel);
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("Scale"));
-		EditorGUILayout.PropertyField(serializedObject.FindProperty("Offset"));
 		
 		GUILayout.Space(10);
 		GUILayout.Label("Chunks", EditorStyles.boldLabel);

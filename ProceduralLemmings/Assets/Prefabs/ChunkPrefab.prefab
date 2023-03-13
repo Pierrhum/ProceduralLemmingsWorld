@@ -146,6 +146,16 @@ PrefabInstance:
       objectReference: {fileID: 8989360486618045609}
     - target: {fileID: 7821336854751875488, guid: f80d7342eb399d647b82c8591a3b04dd,
         type: 3}
+      propertyPath: range.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7821336854751875488, guid: f80d7342eb399d647b82c8591a3b04dd,
+        type: 3}
+      propertyPath: range.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7821336854751875488, guid: f80d7342eb399d647b82c8591a3b04dd,
+        type: 3}
       propertyPath: meshRenderer
       value: 
       objectReference: {fileID: 5974238834144752689}

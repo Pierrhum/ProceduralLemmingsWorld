@@ -95,22 +95,20 @@ public class DisplayChunkTexture : MonoBehaviour
         DrawTexture(TextureFromColorMap(biomeMap, size, size));
     }
 
-    public void DrawBiomeHeightMap(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size)
+    public void DrawBiomeHeightMap(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size, List<float[,]> biomeNoises)
     {
         MeshData meshData = GetComponent<Chunk>().meshData;
-        int width = size, height = size;
+        int width = size + 1, height = size + 1;
         Color[] biomeMap = new Color[width * height];
 
-        
+        int biome = 0;
         foreach (BiomeData biomeData in regionsData)
         {
-            float[,] heightMap = null;
-            if (biomeData.Noise != null) 
-                heightMap = biomeData.Noise.GenerateMap(Vector2.zero);
+            float[,] heightMap = biomeNoises[biome];
             
             foreach (Zone regionDataZone in biomeData.zones) {
-                for (int x = 0; x < size; x++) {
-                    for (int y = 0; y < size; y++) {
+                for (int x = 0; x < width; x++) {
+                    for (int y = 0; y < height; y++) {
                         //temperature value
                         int nX = (int)(Mathf.InverseLerp(0, width, x) * NoiseData.NoiseSize);
                         int nY = (int)(Mathf.InverseLerp(0, height, y) * NoiseData.NoiseSize);
@@ -121,24 +119,30 @@ public class DisplayChunkTexture : MonoBehaviour
                             currentTemperature <= regionDataZone.maxTemperature && 
                             currentMoisture <= regionDataZone.maxMoisture)
                         {
-                            biomeMap[y * size + x] = biomeData.color;
-                            if(heightMap != null)
-                                meshData.ApplyHeightMap(x,y,heightMap[nX, nY],  biomeData.HeightMultiplier, biomeData.heightCurve);
+                            if (heightMap != null)
+                            {
+                                biomeMap [y * width + x] = Color.Lerp (Color.black, Color.white, heightMap [nX, nY]);
+                                //meshData.ApplyHeightMap(x,y,heightMap[nX, nY],  biomeData.HeightMultiplier, biomeData.heightCurve);
+                            } else 
+                                biomeMap [y * width + x] = Color.white;
+                                
                         }
                     }
                 }
             }
+
+            biome++;
         }
         
-        DrawTexture(TextureFromColorMap(biomeMap, size, size));
+        DrawTexture(TextureFromColorMap(biomeMap, width, height));
         GetComponent<Chunk>().UpdateMesh(meshData.CreateMesh());
     }
     
-    public void DrawMaterialsMap(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size)
+    public void DrawMaterialsMap(float[,] temperatureMap, float[,] moistureMap, BiomeData[] regionsData, int size, Vector2 ChunkPos)
     {
         MeshData meshData = GetComponent<Chunk>().meshData;
         List<Material> _materials = new List<Material>();
-        int width = size, height = size;
+        int width = size + 1, height = size + 1;
 
         int subMesh = 0;
         foreach (BiomeData biomeData in regionsData)
@@ -146,11 +150,11 @@ public class DisplayChunkTexture : MonoBehaviour
             _materials.Add(biomeData.getMaterial(0));
             float[,] heightMap = null;
             if (biomeData.Noise != null) 
-                heightMap = biomeData.Noise.GenerateMap(Vector2.zero);
+                heightMap = biomeData.Noise.GenerateMap(ChunkPos);
             
             foreach (Zone regionDataZone in biomeData.zones) {
-                for (int x = 0; x < size; x++) {
-                    for (int y = 0; y < size; y++) {
+                for (int x = 0; x < width; x++) {
+                    for (int y = 0; y < height; y++) {
                         //temperature value
                         int nX = (int)(Mathf.InverseLerp(0, width, x) * NoiseData.NoiseSize);
                         int nY = (int)(Mathf.InverseLerp(0, height, y) * NoiseData.NoiseSize);
@@ -161,7 +165,8 @@ public class DisplayChunkTexture : MonoBehaviour
                             currentTemperature <= regionDataZone.maxTemperature && 
                             currentMoisture <= regionDataZone.maxMoisture)
                         {
-                            meshData.SetSubMesh(x,y,subMesh);
+                            if(x < size && y < size)
+                                meshData.SetSubMesh(x,y,subMesh);
                             if(heightMap != null)
                                 meshData.ApplyHeightMap(x,y,heightMap[nX, nY],  biomeData.HeightMultiplier, biomeData.heightCurve);
                         }

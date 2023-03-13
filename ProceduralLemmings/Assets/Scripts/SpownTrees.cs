@@ -12,7 +12,7 @@ public class SpownTrees : MonoBehaviour
          seedGenerator = GetComponent<SeedGenerator>();
       }
       seedGenerator.GenerateSeed();
-      List<Vector3> pointTreeList = seedGenerator.GetWorldPointInBiome(1);
+      List<Vector3> pointTreeList = seedGenerator.GetWorldPointInBiome(3);
       foreach (Vector3 point in pointTreeList) {
          AddTree(point);
       }

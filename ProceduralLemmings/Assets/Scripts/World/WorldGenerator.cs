@@ -13,7 +13,6 @@ public class WorldGenerator : MonoBehaviour
 
     //[Header("World parameters")]
     [SerializeField] [HideInInspector] public int Scale = 200;
-    [SerializeField] [HideInInspector] private Vector2 Offset = Vector2.zero;
     
     //[Header("Chunks")] 
     [SerializeField] [HideInInspector] private int ChunksNumber;
@@ -31,6 +30,8 @@ public class WorldGenerator : MonoBehaviour
     
     private float[,] moistureNoise;
     public float[,] MoistureNoise { get { return moistureNoise; } }
+    
+    private List<float[,]> biomeNoises;
 
     private List<Chunk> Chunks = new List<Chunk>();
     
@@ -40,15 +41,14 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    private void Start() {
+    private void Awake() {
         OnGenerateWorld();
     }
 
     public void OnGenerateWorld(){
         temperatureData.Scale = Scale;
-        temperatureData.Offset = Offset;
         moistureData.Scale = Scale;
-        moistureData.Offset = Offset;
+
 
         foreach (Transform child in transform)
             StartCoroutine(DestroyOnValidate(child.gameObject));
@@ -85,13 +85,22 @@ public class WorldGenerator : MonoBehaviour
                 // Génération/Position du bruit
                 temperatureNoise = temperatureData.GenerateMap(NoisePos);
                 moistureNoise = moistureData.GenerateMap(NoisePos);
-                DrawChunk(chunk);
+                biomeNoises = new List<float[,]>();
+                foreach (BiomeData biomeData in regionList)
+                {
+                    if (biomeData.Noise)
+                    {
+                        float[,] noiseMap = biomeData.Noise.GenerateMap(NoisePos);
+                        biomeNoises.Add(noiseMap);
+                    } else biomeNoises.Add(null);
+                }
+                DrawChunk(chunk, NoisePos);
                 
                 Chunks.Add(chunk);
             }
     }
 
-    private void DrawChunk(Chunk chunk)
+    private void DrawChunk(Chunk chunk, Vector2 Pos)
     {
         DisplayChunkTexture display = chunk.GetComponent<DisplayChunkTexture>();
         if (drawMode == DrawMode.None) {
@@ -107,10 +116,10 @@ public class WorldGenerator : MonoBehaviour
             display.DrawColorBiomeZone(temperatureNoise, moistureNoise, regionList, Scale);
         }
         else if (drawMode == DrawMode.BiomeHeightMap) {
-            display.DrawBiomeHeightMap(temperatureNoise, moistureNoise, regionList, Scale);
+            display.DrawBiomeHeightMap(temperatureNoise, moistureNoise, regionList, Scale, biomeNoises);
         }
         else if (drawMode == DrawMode.MaterialsMap) {
-            display.DrawMaterialsMap(temperatureNoise, moistureNoise, regionList, Scale);
+            display.DrawMaterialsMap(temperatureNoise, moistureNoise, regionList, Scale, Pos);
         }
         
     }

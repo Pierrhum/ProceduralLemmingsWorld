@@ -75,6 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990d38cc9c5e2484fb71845e6e1a5665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedGenerator: {fileID: 7821336854751875488}
-  LemmingRefList:
-  - {fileID: 8838713097537237784, guid: 9adceae88a2941746b8202ff624e5a7d, type: 3}
+  Lemming: {fileID: 8838713097537237784, guid: 9adceae88a2941746b8202ff624e5a7d, type: 3}
+  OceanLemmings: 12
+  GrassLemmings: 30
+  DesertLemmings: 8
+  ForestLemmings: 25
+  SnowLemmings: 7

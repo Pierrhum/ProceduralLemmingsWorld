@@ -34,9 +34,6 @@
             "m_Id": "008d470cb0ae4a4daa0925046d02e060"
         },
         {
-            "m_Id": "eb9f22a386a94172afa4a779bf800226"
-        },
-        {
             "m_Id": "664f89d1cc974b0094b68ccaf63d0cc2"
         },
         {
@@ -59,6 +56,9 @@
         },
         {
             "m_Id": "11b8586d0c454f5e9e0d499f7b09f164"
+        },
+        {
+            "m_Id": "d7ab4407bda941bf85402994bba14175"
         }
     ],
     "m_GroupDatas": [],
@@ -179,9 +179,6 @@
                 "m_Id": "008d470cb0ae4a4daa0925046d02e060"
             },
             {
-                "m_Id": "eb9f22a386a94172afa4a779bf800226"
-            },
-            {
                 "m_Id": "664f89d1cc974b0094b68ccaf63d0cc2"
             },
             {
@@ -189,6 +186,9 @@
             },
             {
                 "m_Id": "ca2b7afd09b149b7a9d01362024c48a9"
+            },
+            {
+                "m_Id": "d7ab4407bda941bf85402994bba14175"
             }
         ]
     },
@@ -561,7 +561,7 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalLitSubTarget",
     "m_ObjectId": "6bad2761717747d1875484972885baea",
-    "m_WorkflowMode": 1,
+    "m_WorkflowMode": 0,
     "m_NormalDropOffSpace": 0,
     "m_ClearCoat": false
 }
@@ -810,6 +810,36 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.ColorRGBMaterialSlot",
+    "m_ObjectId": "974f884aafc94240aa842795e393f3ba",
+    "m_Id": 0,
+    "m_DisplayName": "Specular Color",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Specular",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": [],
+    "m_ColorMode": 0,
+    "m_DefaultColor": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5,
+        "a": 1.0
+    }
 }
 
 {
@@ -1132,17 +1162,35 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "dbc54fd965424cf0af4e2c967be5e01d",
-    "m_Id": 0,
-    "m_DisplayName": "Metallic",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Metallic",
-    "m_StageCapability": 2,
-    "m_Value": 0.0,
-    "m_DefaultValue": 0.0,
-    "m_Labels": []
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "d7ab4407bda941bf85402994bba14175",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.Specular",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "974f884aafc94240aa842795e393f3ba"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.Specular"
 }
 
 {
@@ -1239,39 +1287,6 @@
     "m_Property": {
         "m_Id": "2667a66fbcfd4b6aa60b930dfa8b4872"
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
-    "m_ObjectId": "eb9f22a386a94172afa4a779bf800226",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "SurfaceDescription.Metallic",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "dbc54fd965424cf0af4e2c967be5e01d"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedDescriptor": "SurfaceDescription.Metallic"
 }
 
 {
