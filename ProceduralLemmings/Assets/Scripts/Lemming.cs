@@ -20,7 +20,7 @@ public class Lemming : MonoBehaviour
     {
         _biome = biome;
         _animator.SetInteger("Biome", biome);
-        _animator.SetBool("Static", path.Count > 0);
+        _animator.SetBool("Static", path.Count == 0);
         if (path.Count > 0)
         {
             _path = path;
@@ -37,6 +37,7 @@ public class Lemming : MonoBehaviour
             float Distance = Vector3.Distance(initPos, destination) / Speed;
             float timer = 0f;
             // Look At destination
+            transform.LookAt(destination);
             while (Vector3.Distance(transform.position, destination) > 0.05f)
             {
                 transform.position = Vector3.Lerp(initPos, destination, timer / (Distance * 5));

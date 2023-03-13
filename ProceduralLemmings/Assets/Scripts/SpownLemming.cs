@@ -37,8 +37,8 @@ public class SpownLemming : MonoBehaviour
             {
                 int spawn = Random.Range(0, spawnSpoints.Count);
                 List<Vector3> path = new List<Vector3>();
-                // Generate a path for half of lemmings
-                if (i % 2 == 0)
+                // Generate a path for quarter of lemmings
+                if (i % 4 == 0)
                 {
                     for (int p = 0; p < 5; p++)
                     {
